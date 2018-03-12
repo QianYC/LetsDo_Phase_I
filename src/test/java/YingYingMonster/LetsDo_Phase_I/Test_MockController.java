@@ -22,6 +22,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import YingYingMonster.LetsDo_Phase_I.controller.MockController;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment=WebEnvironment.DEFINED_PORT)
 //@WebAppConfiguration
