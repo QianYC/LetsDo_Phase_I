@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SafetyService {
 
-	@Before("execution(* YingYingMonster.LetsDo_Phase_I.controller.HelloController.hello(..))")
+//	@Before("execution(* YingYingMonster.LetsDo_Phase_I.controller.HelloController.hello(..))")
 	public void log(){
 		System.out.println("opening a hello html");
 	}

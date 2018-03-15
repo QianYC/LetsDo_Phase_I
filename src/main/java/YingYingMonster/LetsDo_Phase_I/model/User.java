@@ -1,4 +1,4 @@
-package YingYingMonster.LetsDo_Phase_I.domain;
+package YingYingMonster.LetsDo_Phase_I.model;
 
 public class User {
 

@@ -28,10 +28,10 @@ public class Swagger2 {
 	private ApiInfo apiInfo(){
 		
 		return new ApiInfoBuilder()
-				.title("")
+				.title("Restful API of YingYingMonster")
 				.description("")
-				.termsOfServiceUrl("")
-				.version("")
+				.termsOfServiceUrl("waiting for an ali server")
+				.version("0.0.1")
 				.build();
 	}
 }
