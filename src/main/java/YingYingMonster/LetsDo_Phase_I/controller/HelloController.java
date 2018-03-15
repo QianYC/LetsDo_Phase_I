@@ -4,6 +4,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ * 这个controller用于测使用
+ * @author 17678
+ *
+ */
 @Controller//方法返回的都是页面
 public class HelloController {
 

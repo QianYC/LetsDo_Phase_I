@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import YingYingMonster.LetsDo_Phase_I.service.MockService;
 
+/**
+ * 这个controller用于测试
+ * @author 17678
+ *
+ */
 @RestController
 @RequestMapping("/")
 public class MockController {

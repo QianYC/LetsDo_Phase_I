@@ -1,4 +1,4 @@
-package YingYingMonster.LetsDo_Phase_I;
+package YingYingMonster.LetsDo_Phase_I.controller;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.*;
