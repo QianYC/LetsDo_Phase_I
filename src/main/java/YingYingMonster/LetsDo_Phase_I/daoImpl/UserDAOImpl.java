@@ -20,9 +20,9 @@ public class UserDAOImpl implements UserDAO {
 		if(this.findById(user.getId())!=null)
 			return false;
 		else{
-			File newUser=new File("src/main/resources/stock/"+user.getId());
+			File newUser=new File("src/main/resources/stock/users"+user.getId());
 			newUser.mkdirs();
-			File UserInfo=new File("src/main/resources/stock/users.csv");
+			File UserInfo=new File("src/main/resources/stock/users/users.csv");
 			try {
 				FileWriter fw=new FileWriter(UserInfo,true);
 				CSVWriter cw=new CSVWriter(fw,',');
@@ -53,7 +53,7 @@ public class UserDAOImpl implements UserDAO {
 	public boolean modify(User newUser) {
 		if(newUser.getId()==null||newUser.getName()==null||newUser.getPw()==null)
 			return false;
-		File UserInfo=new File("src/main/resources/stock/users.csv");
+		File UserInfo=new File("src/main/resources/stock/users/users.csv");
 		try {
 			FileReader fr=new FileReader(UserInfo);
 			CSVReader cr=new CSVReader(fr);
@@ -82,7 +82,7 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public User findById(String id) {
 		// TODO 自动生成的方法存根
-		File UserInfo=new File("src/main/resources/stock/users.csv");
+		File UserInfo=new File("src/main/resources/stock/users/users.csv");
 		try {
 			FileReader fr=new FileReader(UserInfo);
 			CSVReader cr=new CSVReader(fr);
