@@ -1,10 +1,11 @@
 package YingYingMonster.LetsDo_Phase_I.model;
 
 import java.awt.Color;
-import java.awt.Shape;
+import java.util.ArrayList;
 
 public interface Requirement {
-	public Color getColor();
-	public Shape getShape();
+	enum shape {rec,circle,irregular}
+	public ArrayList<Color> getColor();
 	public int getThickness();
+	public shape getShape();
 }
