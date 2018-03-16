@@ -1,10 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!--注册界面-->
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title></title>
 </head>
+<script src="<%=request.getContextPath()%>/js/user_obj.js"></script>
 <body>
-
+<script>
+function onRegister(){
+	alert("on register"+$("#username").val());
+}
+</script>
+<div id="userInfo" >
+<div>
+昵称: <input id="username" placeholder="用户名">
+</div>
+<div>
+密码: <input id="password" placeholder="请输入密码">
+</div>
+<div>
+再次输入密码: <input id="passwordAssure" placeholder="请再次输入密码">
+<button onclick="onRegister()">注册</button>
+</div>
+</div>
 </body>
 </html>
