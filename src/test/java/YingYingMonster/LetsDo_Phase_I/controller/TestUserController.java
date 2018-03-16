@@ -9,7 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-public class TestHomePageController {
+public class TestUserController {
 
 	private MockMvc mvc;
 	@Before
@@ -18,7 +18,7 @@ public class TestHomePageController {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver(); //在test中重新配置视图解析器
         resolver.setPrefix("src/main/resources/templates/");
         resolver.setSuffix(".html");
-		mvc=MockMvcBuilders.standaloneSetup(new HomePageController()).setViewResolvers(resolver).build();
+		mvc=MockMvcBuilders.standaloneSetup(new UserController()).setViewResolvers(resolver).build();
 	}
 
 	@Test
