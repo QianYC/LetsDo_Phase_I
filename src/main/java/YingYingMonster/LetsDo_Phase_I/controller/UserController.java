@@ -1,15 +1,14 @@
 package YingYingMonster.LetsDo_Phase_I.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import YingYingMonster.LetsDo_Phase_I.dao.UserDAO;
-import YingYingMonster.LetsDo_Phase_I.daoImpl.UserDAOImpl;
 import YingYingMonster.LetsDo_Phase_I.model.User;
+import YingYingMonster.LetsDo_Phase_I.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -18,7 +17,8 @@ import io.swagger.annotations.ApiOperation;
 @Api()
 public class UserController {
 	
-	UserDAO userImpl=new UserDAOImpl();
+	@Autowired
+	private UserService userService;
 	
 	@GetMapping("/register")
 	@ApiOperation(value = "访问用户注册界面")
@@ -27,10 +27,12 @@ public class UserController {
 	}
 	
 	@PostMapping("/register")
-	@ApiOperation(value = "注册新用户，注册成功后跳转至登录界面")
+	@ApiOperation(value = "注册新用户，注册成功后跳转至登录界面；失败则返回注册界面，显示错误信息")
 	public String register(@ModelAttribute("user")User user){
-		userImpl.register(user.getId(),user.getPw());
-		return "redirect:/user/login";
+		if(userService.register(user))
+			return "redirect:/user/login";
+		else
+			return "register";
 	}
 	
 	@GetMapping("/login")
@@ -40,20 +42,20 @@ public class UserController {
 	}
 	
 	@PostMapping("/login")
-	@ApiOperation(value = "用户登录，成功后返回用户主界面")
+	@ApiOperation(value = "用户登录，成功后返回用户主界面；失败则返回登录界面，显示错误信息")
 	public String login(@RequestParam("userId")String id
 			,@RequestParam("password")String password){
-		if(userImpl.login(id, password))
-			return userImpl.findById(id).getName();
+		if(userService.login(id, password))
+			return "workSpace";
 		else
-			return null;
+			return "login";
 	}
 	
 	@PostMapping("/modify")
-	@ApiOperation(value = "用户修改自身信息，不做页面跳转")
+	@ApiOperation(value = "用户修改自身信息")
 	public String modify(@ModelAttribute("user")User user){
-		if(userImpl.modify(user))
-			return null;
+		if(userService.modify(user))
+			return "workSpace";
 		else
 			return "wrong";
 	}
