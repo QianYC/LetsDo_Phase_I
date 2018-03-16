@@ -10,7 +10,7 @@ import YingYingMonster.LetsDo_Phase_I.service.UserService;
 @Component
 public class UserServiceImpl implements UserService {
 
-	@Autowired
+//	@Autowired
 	private UserDAO userDao;
 	
 	@Override
