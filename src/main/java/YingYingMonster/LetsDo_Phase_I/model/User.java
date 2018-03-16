@@ -1,5 +1,10 @@
 package YingYingMonster.LetsDo_Phase_I.model;
 
+/**
+ * 用户类，暂时包含姓名、账号、密码
+ * @author 17678
+ *
+ */
 public class User {
 
 	private String name,id,pw;
