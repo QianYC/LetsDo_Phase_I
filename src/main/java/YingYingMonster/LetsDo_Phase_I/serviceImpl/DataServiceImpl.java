@@ -36,15 +36,17 @@ public class DataServiceImpl implements DataService {
 	}
 
 	@Override
-	public ZipFile downloadDataSet(String workerid) {
+	public ZipFile downloadDataSet(String workerId, String dataSetId) {
 		// TODO Auto-generated method stub
-		return fileDao.downloadDataSet(workerid);
+		return fileDao.downloadDataSet(workerId, dataSetId);
 	}
 
 	@Override
-	public File downloadData(String workerid) {
+	public File downloadData(String workerId, String dataId) {
 		// TODO Auto-generated method stub
-		return fileDao.downloadData(workerid);
+		return fileDao.downloadData(workerId, dataId);
 	}
+
+
 
 }

@@ -32,15 +32,17 @@ public interface FileDAO {
 	
 	/**
 	 * 下载整个数据集
-	 * @param workerid 工人id
+	 * @param workerId 工人id
+	 * @param dataSetId 数据集id
 	 * @return zip形式数据集
 	 */
-	public ZipFile downloadDataSet(String workerid);
+	public ZipFile downloadDataSet(String workerId,String dataSetId);
 	
 	/**
 	 * 单个下载数据
-	 * @param workerid 工人id
+	 * @param workerId 工人id
+	 * @param dataId 数据id
 	 * @return 数据
 	 */
-	public File downloadData(String workerid);
+	public File downloadData(String workerId,String dataId);
 }
