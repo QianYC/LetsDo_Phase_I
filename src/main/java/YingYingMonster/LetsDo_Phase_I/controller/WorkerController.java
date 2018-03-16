@@ -16,7 +16,6 @@ import YingYingMonster.LetsDo_Phase_I.daoImpl.FileDAOImpl;
 import YingYingMonster.LetsDo_Phase_I.daoImpl.UserDAOImpl;
 import YingYingMonster.LetsDo_Phase_I.model.Tag;
 import YingYingMonster.LetsDo_Phase_I.service.DataService;
-import YingYingMonster.LetsDo_Phase_I.serviceImpl.FileService;
 import YingYingMonster.LetsDo_Phase_I.serviceImpl.UserServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
