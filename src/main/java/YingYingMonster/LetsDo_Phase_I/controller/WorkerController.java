@@ -12,7 +12,7 @@ import YingYingMonster.LetsDo_Phase_I.daoImpl.FileDAOImpl;
 import YingYingMonster.LetsDo_Phase_I.daoImpl.UserDAOImpl;
 import YingYingMonster.LetsDo_Phase_I.model.Tag;
 import YingYingMonster.LetsDo_Phase_I.serviceImpl.FileService;
-import YingYingMonster.LetsDo_Phase_I.serviceImpl.UserService;
+import YingYingMonster.LetsDo_Phase_I.serviceImpl.UserServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -24,7 +24,7 @@ public class WorkerController {
 //	@PostMapping("/chooseProject")
 
 	FileService fileservice=new FileService();
-	UserService userservice=new UserService();
+	UserServiceImpl userservice=new UserServiceImpl();
 	
 	@PostMapping("/upload")
 	@ApiOperation(value = "工人验证身份后，上传一张图片的标签（Tag）",notes="用于在线作业，返回值未定")
