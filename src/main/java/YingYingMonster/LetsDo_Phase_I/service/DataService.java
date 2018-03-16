@@ -1,4 +1,4 @@
-package YingYingMonster.LetsDo_Phase_I.dao;
+package YingYingMonster.LetsDo_Phase_I.service;
 
 import java.io.File;
 import java.util.zip.ZipFile;
@@ -6,7 +6,7 @@ import java.util.zip.ZipFile;
 import YingYingMonster.LetsDo_Phase_I.model.Requirement;
 import YingYingMonster.LetsDo_Phase_I.model.Tag;
 
-public interface FileDAO {
+public interface DataService {
 
 	/**
 	 * 上传数据集

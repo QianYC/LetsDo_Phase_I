@@ -7,11 +7,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import YingYingMonster.LetsDo_Phase_I.dao.UserDAO;
 import YingYingMonster.LetsDo_Phase_I.model.User;
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
 
+@Component
 public class UserDAOImpl implements UserDAO {
 
 	@Override
