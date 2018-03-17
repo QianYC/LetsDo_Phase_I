@@ -2,6 +2,7 @@ package YingYingMonster.LetsDo_Phase_I.model;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Requirement {
 	ArrayList<Integer> color;
@@ -30,5 +31,12 @@ public class Requirement {
 		this.shape = shape;
 	}
 	
-	
+	public String[] toStringCSV(){
+		String colors="";
+		for(int n:color){
+			colors+=n+"&";
+		}
+		return new String[]{colors,thickness+"",shape+""};
+
+	}
 }
