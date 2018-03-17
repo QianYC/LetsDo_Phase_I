@@ -14,7 +14,7 @@ public interface FileDAO {
 	 * @param zipFile zip形式的数据集
 	 * @param requirement 要求说明书
 	 */
-	public void uploadDataSet(String publisherId,ZipFile zipFile,Requirement requirement);
+	public void uploadDataSet(String publisherId,File zipFile,Requirement requirement);
 	
 	/**
 	 * 上传单张做好的标记
@@ -28,7 +28,7 @@ public interface FileDAO {
 	 * @param workerId 工人id
 	 * @param zipFile 标记
 	 */
-	public void uploadTags(String workerId,ZipFile zipFile);
+	public void uploadTags(String workerId,File zipFile);
 	
 	/**
 	 * 下载整个数据集
@@ -36,7 +36,7 @@ public interface FileDAO {
 	 * @param dataSetId 数据集id
 	 * @return zip形式数据集
 	 */
-	public ZipFile downloadDataSet(String workerId,String dataSetId);
+	public File downloadDataSet(String workerId,String dataSetId);
 	
 	/**
 	 * 单个下载数据

@@ -7,6 +7,7 @@ import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import YingYingMonster.LetsDo_Phase_I.dao.FileDAO;
 import YingYingMonster.LetsDo_Phase_I.model.Requirement;
@@ -16,9 +17,12 @@ import YingYingMonster.LetsDo_Phase_I.model.Tag;
 public class FileDAOImpl implements FileDAO {
 
 	@Override
-	public void uploadDataSet(String publisherId, ZipFile zipFile, Requirement requirement) {
+	public void uploadDataSet(String publisherId, File zipFile, Requirement requirement) {
 		// TODO Auto-generated method stub
-		
+		String newFilePath="src/main/resources/stock/projects/"+publisherId+"_"+zipFile.getName();
+		File newFile=new File(newFilePath);
+		zipFile.renameTo(newFile);
+		File requirementTxt=new File("src/main/resources/stock/projects/")
 	}
 
 	@Override
@@ -28,13 +32,13 @@ public class FileDAOImpl implements FileDAO {
 	}
 
 	@Override
-	public void uploadTags(String workerId, ZipFile zipFile) {
+	public void uploadTags(String workerId, File zipFile) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public ZipFile downloadDataSet(String workerId, String dataSetId) {
+	public File downloadDataSet(String workerId, String dataSetId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

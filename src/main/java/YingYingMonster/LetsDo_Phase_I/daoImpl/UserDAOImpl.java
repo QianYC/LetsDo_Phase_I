@@ -23,7 +23,7 @@ public class UserDAOImpl implements UserDAO {
 		if(this.findById(user.getId())!=null)
 			return false;
 		else{
-			File newUser=new File("src/main/resources/stock/users"+user.getId());
+			File newUser=new File("src/main/resources/stock/users/"+user.getId());
 			newUser.mkdirs();
 			File UserInfo=new File("src/main/resources/stock/users/users.csv");
 			try {
