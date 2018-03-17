@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: LetsDo_Phase_I
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: 17678
+Built-By: TF
 Implementation-Vendor-Id: YingYingMonster
-Build-Jdk: 1.8.0_161
+Build-Jdk: 1.8.0_152
 Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
  ot-starter-parent/LetsDo_Phase_I
 Created-By: Maven Integration for Eclipse
