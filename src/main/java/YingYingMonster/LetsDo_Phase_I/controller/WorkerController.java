@@ -39,7 +39,7 @@ public class WorkerController {
 	
 	@PostMapping("/download/all")
 	@ApiOperation(value = "下载整个数据集")
-	public ZipFile downloadDataSet(@RequestParam ("workerId")String workerId
+	public File downloadDataSet(@RequestParam ("workerId")String workerId
 			,@RequestParam ("dataSetId")String dataSetId){
 		return dataService.downloadDataSet(workerId, dataSetId);
 	}

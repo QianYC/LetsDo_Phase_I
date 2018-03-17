@@ -9,4 +9,6 @@ public interface UserService {
 	public boolean login(String id,String pw);
 	
 	public boolean modify(User user);
+	
+	public User findUser(String id);
 }

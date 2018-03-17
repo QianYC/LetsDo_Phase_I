@@ -1,11 +1,11 @@
 package YingYingMonster.LetsDo_Phase_I.serviceImpl;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.zip.ZipFile;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
+import org.springframework.web.multipart.MultipartFile;
 import YingYingMonster.LetsDo_Phase_I.dao.FileDAO;
 import YingYingMonster.LetsDo_Phase_I.model.Requirement;
 import YingYingMonster.LetsDo_Phase_I.model.Tag;
@@ -17,11 +17,7 @@ public class DataServiceImpl implements DataService {
 	//@Autowired
 	private FileDAO fileDao;
 	
-	@Override
-	public void uploadDataSet(String publisherId, ZipFile zipFile, Requirement requirement) {
-		// TODO Auto-generated method stub
-		fileDao.uploadDataSet(publisherId, zipFile, requirement);
-	}
+	
 
 	@Override
 	public void uploadTag(String workerId, Tag tag) {
@@ -30,13 +26,13 @@ public class DataServiceImpl implements DataService {
 	}
 
 	@Override
-	public void uploadTags(String workerId, ZipFile zipFile) {
+	public void uploadTags(String workerId, File zipFile) {
 		// TODO Auto-generated method stub
 		fileDao.uploadTags(workerId, zipFile);
 	}
 
 	@Override
-	public ZipFile downloadDataSet(String workerId, String dataSetId) {
+	public File downloadDataSet(String workerId, String dataSetId) {
 		// TODO Auto-generated method stub
 		return fileDao.downloadDataSet(workerId, dataSetId);
 	}
@@ -47,6 +43,10 @@ public class DataServiceImpl implements DataService {
 		return fileDao.downloadData(workerId, dataId);
 	}
 
-
+	@Override
+	public void uploadDataSet(String publisherId, String fileId, MultipartFile file, Requirement requirement) throws IOException {
+		// TODO Auto-generated method stub
+		fileDao.uploadDataSet(publisherId, fileId, file.getBytes(), requirement);
+	}
 
 }

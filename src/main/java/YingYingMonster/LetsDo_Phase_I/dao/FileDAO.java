@@ -7,14 +7,6 @@ import YingYingMonster.LetsDo_Phase_I.model.Requirement;
 import YingYingMonster.LetsDo_Phase_I.model.Tag;
 
 public interface FileDAO {
-
-	/**
-	 * 上传数据集
-	 * @param publisherId 发布人id
-	 * @param zipFile zip形式的数据集
-	 * @param requirement 要求说明书
-	 */
-	public void uploadDataSet(String publisherId,ZipFile zipFile,Requirement requirement);
 	
 	/**
 	 * 上传单张做好的标记
@@ -28,7 +20,7 @@ public interface FileDAO {
 	 * @param workerId 工人id
 	 * @param zipFile 标记
 	 */
-	public void uploadTags(String workerId,ZipFile zipFile);
+	public void uploadTags(String workerId,File zipFile);
 	
 	/**
 	 * 下载整个数据集
@@ -36,7 +28,7 @@ public interface FileDAO {
 	 * @param dataSetId 数据集id
 	 * @return zip形式数据集
 	 */
-	public ZipFile downloadDataSet(String workerId,String dataSetId);
+	public File downloadDataSet(String workerId,String dataSetId);
 	
 	/**
 	 * 单个下载数据
@@ -45,4 +37,13 @@ public interface FileDAO {
 	 * @return 数据
 	 */
 	public File downloadData(String workerId,String dataId);
+
+	/**
+	 * 
+	 * @param publisherId 发布者id
+	 * @param fileId 文件id
+	 * @param bytes 文件内容
+	 * @param requirement 要求说明
+	 */
+	public void uploadDataSet(String publisherId, String fileId, byte[] bytes, Requirement requirement);
 }
