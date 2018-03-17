@@ -12,7 +12,10 @@ public class UserDAOTest {
 	
 	@Test
 	public void testRegister(){
-		User user=new User("admin1","11111","12345");
+		User user=new User();
+		user.setId("11111");
+		user.setName("admin1");
+		user.setPw("12345");
 		UserDAO userImpl=new UserDAOImpl();
 		//assertEquals(userImpl.register(user),true);
 		assertEquals(userImpl.register(user),false);
@@ -20,7 +23,10 @@ public class UserDAOTest {
 	
 	@Test
 	public void testModify(){
-		User user=new User("admin1","11111","12346");
+		User user=new User();
+		user.setId("11111");
+		user.setName("admin1");
+		user.setPw("12346");
 		UserDAO userImpl=new UserDAOImpl();
 		assertEquals(userImpl.modify(user),true);
 	}

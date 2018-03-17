@@ -92,7 +92,11 @@ public class UserDAOImpl implements UserDAO {
 			List<String[]> users=cr.readAll();
 			for(String[] userInfo: users){
 				if(userInfo[0].equals(id)){
-					return new User(userInfo[1],userInfo[0],userInfo[2]);
+					User u=new User();
+					u.setId(userInfo[0]);
+					u.setName(userInfo[1]);
+					u.setPw(userInfo[2]);
+					return u;
 				}
 			}
 			cr.close();
