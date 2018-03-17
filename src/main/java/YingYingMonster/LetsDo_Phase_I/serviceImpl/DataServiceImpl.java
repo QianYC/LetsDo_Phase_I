@@ -14,7 +14,7 @@ import YingYingMonster.LetsDo_Phase_I.service.DataService;
 @Component
 public class DataServiceImpl implements DataService {
 
-	@Autowired
+	//@Autowired
 	private FileDAO fileDao;
 	
 	@Override

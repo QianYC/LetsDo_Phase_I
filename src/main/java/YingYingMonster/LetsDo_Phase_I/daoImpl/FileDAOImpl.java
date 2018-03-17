@@ -13,19 +13,19 @@ import YingYingMonster.LetsDo_Phase_I.model.Tag;
 public class FileDAOImpl implements FileDAO {
 
 
-	@Override
+
 	public boolean workerUpload(Tag tag, String userId) {
 		// TODO 自动生成的方法存根
 		return false;
 	}
 
-	@Override
+
 	public boolean workerDownload(String userId) {
 		// TODO 自动生成的方法存根
 		return false;
 	}
 
-	@Override
+
 	public boolean sponsorUpload(ZipFile file, String userId, Requirement requirement) {
 		// TODO 自动生成的方法存根
 		File newProjectAd=new File("src/main/resources/stock/projects/"+userId+"_"+file.getName());
@@ -35,4 +35,28 @@ public class FileDAOImpl implements FileDAO {
 		return true;
 	}
 
+	@Override
+	public void uploadDataSet(String publisherId, ZipFile zipFile, Requirement requirement) {
+
+	}
+
+	@Override
+	public void uploadTag(String workerId, Tag tag) {
+
+	}
+
+	@Override
+	public void uploadTags(String workerId, ZipFile zipFile) {
+
+	}
+
+	@Override
+	public ZipFile downloadDataSet(String workerId, String dataSetId) {
+		return null;
+	}
+
+	@Override
+	public File downloadData(String workerId, String dataId) {
+		return null;
+	}
 }
