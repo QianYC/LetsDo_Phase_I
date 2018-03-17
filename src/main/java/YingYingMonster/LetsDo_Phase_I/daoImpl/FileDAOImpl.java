@@ -12,23 +12,23 @@ import au.com.bytecode.opencsv.CSVWriter;
 @Component
 public class FileDAOImpl implements FileDAO {
 
-	@Override
-	public void uploadDataSet(String publisherId, File zipFile, Requirement requirement) {
-		// TODO Auto-generated method stub
-		String newFilePath="src/main/resources/stock/projects/"+publisherId+"_"+zipFile.getName();
-		File newFile=new File(newFilePath+"/"+zipFile.getName());
-		zipFile.renameTo(newFile);
-		File requirementTxt=new File(newFilePath+"/requirement.csv");
-		try {
-			FileWriter fw=new FileWriter(requirementTxt);
-			CSVWriter cw=new CSVWriter(fw);
-			cw.writeNext(requirement.toStringCSV());
-			cw.close();
-		} catch (IOException e) {
-			// TODO 自动生成的 catch 块
-			e.printStackTrace();
-		}
-	}
+//	@Override
+//	public void uploadDataSet(String publisherId, File zipFile, Requirement requirement) {
+//		// TODO Auto-generated method stub
+//		String newFilePath="src/main/resources/stock/projects/"+publisherId+"_"+zipFile.getName();
+//		File newFile=new File(newFilePath+"/"+zipFile.getName());
+//		zipFile.renameTo(newFile);
+//		File requirementTxt=new File(newFilePath+"/requirement.csv");
+//		try {
+//			FileWriter fw=new FileWriter(requirementTxt);
+//			CSVWriter cw=new CSVWriter(fw);
+//			cw.writeNext(requirement.toStringCSV());
+//			cw.close();
+//		} catch (IOException e) {
+//			// TODO 自动生成的 catch 块
+//			e.printStackTrace();
+//		}
+//	}
 
 	@Override
 	public void uploadTag(String workerId, Tag tag) {
@@ -53,6 +53,13 @@ public class FileDAOImpl implements FileDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void uploadDataSet(String publisherId, String fileId, byte[] bytes, Requirement requirement) {
+		// TODO 自动生成的方法存根
+		
+	}
+
 
 
 	
