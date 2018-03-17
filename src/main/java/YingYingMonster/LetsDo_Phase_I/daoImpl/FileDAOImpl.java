@@ -16,12 +16,6 @@ import YingYingMonster.LetsDo_Phase_I.model.Tag;
 public class FileDAOImpl implements FileDAO {
 
 	@Override
-	public void uploadDataSet(String publisherId, ZipFile zipFile, Requirement requirement) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void uploadTag(String workerId, Tag tag) {
 		// TODO Auto-generated method stub
 		
@@ -43,6 +37,12 @@ public class FileDAOImpl implements FileDAO {
 	public File downloadData(String workerId, String dataId) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void uploadDataSet(String publisherId, String fileId, byte[] bytes, Requirement requirement) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

@@ -31,4 +31,10 @@ public class UserServiceImpl implements UserService {
 		return userDao.modify(user);
 	}
 
+	@Override
+	public User findUser(String id) {
+		// TODO Auto-generated method stub
+		return userDao.findById(id);
+	}
+
 }

@@ -41,7 +41,8 @@ public class UserController {
 	
 	@GetMapping("/login")
 	@ApiOperation(value = "访问用户登录界面")
-	public String visitLoginPage(){
+	public String visitLoginPage(Model model){
+		model.addAttribute("user", new User());
 		return "login";
 	}
 	
@@ -53,6 +54,20 @@ public class UserController {
 			return "workSpace";
 		else
 			return "login";
+	}
+	
+	@GetMapping("/modify")
+	@ApiOperation(value="访问修改信息页面",notes="一定要根据账号密码做身份验证，否则可能会修改到别的用户的数据！")
+	public String visitModifyPage(Model model,
+			@RequestParam(value="id",required=true)String id,
+			@RequestParam(value="pw",required=true)String pw){
+		
+		User user=userService.findUser(id);
+		model.addAttribute("user", user);
+		if(user.getPw().equals(pw))
+			return "workSpace";
+		else
+			return "error";//身份验证失败返回错误页
 	}
 	
 	@PostMapping("/modify")
