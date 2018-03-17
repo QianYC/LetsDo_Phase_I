@@ -5,6 +5,7 @@ package YingYingMonster.LetsDo_Phase_I.model;
  * @author 17678
  *
  */
+
 public class User {
 
 	private String name,id,pw;
@@ -21,13 +22,19 @@ public class User {
 		return id;
 	}
 
-	public User(String name, String id, String pw) {
-		super();
+	public void setName(String name) {
 		this.name = name;
+	}
+
+	public void setId(String id) {
 		this.id = id;
+	}
+
+	public void setPw(String pw) {
 		this.pw = pw;
 	}
 
+	
 	
 	
 	

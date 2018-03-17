@@ -14,7 +14,10 @@ public class TestUserMsg {
 	@Before
 	public void setUp() throws Exception {
 		um=new UserMsg();
-		User user=new User("name", "id", "pw");
+		User user=new User();
+		user.setId("id");
+		user.setName("name");
+		user.setPw("pw");
 		um.setUser(user);
 		um.setResults(Results.FAIL);
 		um.setReasons(Reasons.WRONG_PASSWORD);
