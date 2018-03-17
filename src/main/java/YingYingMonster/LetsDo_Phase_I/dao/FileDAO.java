@@ -20,7 +20,7 @@ public interface FileDAO {
 	 * @param workerId 工人id
 	 * @param zipFile 标记
 	 */
-	public void uploadTags(String workerId,ZipFile zipFile);
+	public void uploadTags(String workerId,File zipFile);
 	
 	/**
 	 * 下载整个数据集
@@ -28,7 +28,7 @@ public interface FileDAO {
 	 * @param dataSetId 数据集id
 	 * @return zip形式数据集
 	 */
-	public ZipFile downloadDataSet(String workerId,String dataSetId);
+	public File downloadDataSet(String workerId,String dataSetId);
 	
 	/**
 	 * 单个下载数据
