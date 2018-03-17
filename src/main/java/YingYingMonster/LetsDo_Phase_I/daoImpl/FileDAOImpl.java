@@ -1,16 +1,9 @@
 package YingYingMonster.LetsDo_Phase_I.daoImpl;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.util.zip.ZipFile;
-import java.util.zip.ZipOutputStream;
-
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
-
 import YingYingMonster.LetsDo_Phase_I.dao.FileDAO;
 import YingYingMonster.LetsDo_Phase_I.model.Requirement;
 import YingYingMonster.LetsDo_Phase_I.model.Tag;
