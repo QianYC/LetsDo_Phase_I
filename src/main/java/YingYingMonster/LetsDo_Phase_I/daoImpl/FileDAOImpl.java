@@ -44,10 +44,12 @@ public class FileDAOImpl implements FileDAO {
 	public File downloadDataSet(String workerId, String dataSetId) {
 		String[] name=dataSetId.split("_");
 		File downloadDataSet=new File("src/main/resources/stock/projects/"+dataSetId+"/"+name[1]+".zip");
-		File workerNewFile=new File("src/main/resources/stock/users/"+workerId+"/"+dataSetId+"/imcomplete");
-		if(workerNewFile.exists())
+		File workerNewFile_1=new File("src/main/resources/stock/users/"+workerId+"/"+dataSetId+"/imcomplete");
+		File workerNewFile_2=new File("src/main/resources/stock/users/"+workerId+"/"+dataSetId+"/complete/tags");
+		if(workerNewFile_1.exists()||workerNewFile_2.exists())
 			return null;
-		workerNewFile.mkdirs();
+		workerNewFile_1.mkdirs();
+		workerNewFile_2.mkdirs();
 			
 		//解压
 		ZipArchiveInputStream is;
