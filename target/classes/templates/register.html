@@ -1,99 +1,20 @@
+
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <!--注册界面-->
 <script src="../jquery-3.3.1.js"></script>
-<script type="text/javascript" src="user_obj.js"></script>
+<script type="text/javascript" src="../register.js"></script>
 <meta charset="UTF-8">
 <title></title>
 </head>
 <body>
-<script>
-function checkUsername(){
-	if($("#username").val().length<3){
-		return false;
-	}
-	else{
-		return true;
-	}
-}
-	
-function checkPassword(){
-	if($("#password").val().length < 6){
-		return false;
-	}
-	else{
-		return true;
-	}
-}
-
-function checkPasswordAssure(){
-	if($("#passwordAssure").val() === $("#password").val()){
-		return true;
-	}
-	else{
-		return false;
-	}
-}
-
-$(document).ready(function(){
-	$("#username").on("input",function(){//检查用户名，规范未定
-		if(!checkUsername()){
-			$("#usernameCheck").show();
-		}
-		else{
-			$("#usernameCheck").hide();
-		}
-	});
-	
-	$("#password").on("input",function(){//检查密码，长度大于6
-		if(!checkPassword()){
-			$("#passwordCheck").show();
-		}
-		else{
-			$("#passwordCheck").hide();
-		}
-		$("#passwordAssure").val("");
-	});
-		
-	$("#passwordAssure").on("input",function(){//检查密码确认
-		//输入检查
-		if(checkPasswordAssure()){
-			$("#passwordAssureCheck").hide();
-		}
-		else{
-			$("#passwordAssureCheck").show();
-		}
-	});
-});
-	
- function onRegister(){
-	if(checkPassword()&&checkPasswordAssure()&&checkUsername()){
-		//输入合法 进行下一步
-		$.ajax({
-			
-		})
-	}
-	else{
-		//如何提醒用户？？
-	}
-}
-</script>
-<div id="userInfo" >
-<div>
-昵称: <input id="username" placeholder="用户名" >
-</div>
-<div id="usernameCheck" class="error-info" hidden="true">用户名不规范</div>
-<div>
-密码: <input id="password" type="password" placeholder="请输入密码">
-</div>
-<div id="passwordCheck" class="error-info"  hidden="true">密码长度应大于6个字符</div>
-<div>
-再次输入密码: <input id="passwordAssure" type="password" placeholder="请再次输入密码">
-<div id="passwordAssureCheck" class="error-info"  hidden="true">密码输入不符</div>
-<br>
-<button onclick="onRegister()">注册</button>
-</div>
-</div>
+	<h1>用户注册</h1>
+	<form action="#" th:action="@{/user/register}" th:object="${user}" method="post">
+	  <p>邮箱: <input type="text" th:field="*{id}" /></p>
+	  <p>昵称: <input type="text" th:field="*{name}" /></p>
+	  <p>密码: <input type="password" th:field="*{pw}" /></p>
+	  <p><input type="submit" value="提交" />  <input type="reset" value="清空" /></p>
+	</form>
 </body>
 </html>

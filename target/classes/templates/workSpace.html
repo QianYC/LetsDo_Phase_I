@@ -2,9 +2,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<link rel="stylesheet" href="../static/CSS/workSpace.css">
+<script src="../static/mark.js"></script>
+<script>
+	window.onload = function(){
+		var mark = new Mark();
+		mark.init();
+	};
+	</script>
+<title>work space</title>
 </head>
 <body>
-
+	<div id = "tools" >
+		<button id="pencil">铅笔</button>
+		<button id="square">矩形</button>
+		<button id="circle">圆形</button>
+	</div>
+<canvas id="penal" width="800" height="800"></canvas>
 </body>
 </html>
