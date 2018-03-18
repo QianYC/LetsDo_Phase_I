@@ -1,5 +1,7 @@
 package YingYingMonster.LetsDo_Phase_I.DAO;
 
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 import YingYingMonster.LetsDo_Phase_I.dao.FileDAO;
@@ -8,11 +10,16 @@ import YingYingMonster.LetsDo_Phase_I.daoImpl.FileDAOImpl;
 public class FileDAOTest {
 	
 	FileDAO fileImpl=new FileDAOImpl();
-
+	
 	@Test
-	public void TestDownloadDS(){
-		fileImpl.downloadDataSet("11112","11111_test");
+	public void TestDownloadFile(){
+		assertEquals(fileImpl.downloadData("11112", "test1", "11111_test").getName(),"test1.txt");
 	}
+
+//	@Test
+//	public void TestDownloadDS(){
+//		fileImpl.downloadDataSet("11112","11111_test");
+//	}
 	
 //	@Test
 //	public void TestUploadDS(){

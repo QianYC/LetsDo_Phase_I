@@ -84,13 +84,6 @@ public class FileDAOImpl implements FileDAO {
 	}
 
 	@Override
-	public File downloadData(String workerId, String dataId) {
-		// TODO Auto-generated method stub
-		File downloadFile=new File("src/main/resources/stock/projects/"+dataId);
-		return null;
-	}
-
-	@Override
 	public void uploadDataSet(String publisherId, String fileId, byte[] bytes, Requirement requirement) {
 		// TODO Auto-generated method stub
 		String newFilePath="src/main/resources/stock/projects/"+publisherId+"_"+fileId;
@@ -148,4 +141,22 @@ public class FileDAOImpl implements FileDAO {
         ins.close();
         out.close();
     }
+
+	@Override
+	public File downloadData(String workerId, String dataId, String dataSetId) {
+		// TODO Auto-generated method stub
+		File data_1=new File("src/main/resources/stock/users/"+workerId+"/"+dataSetId+"/imcomplete");
+		File[] datas_1=data_1.listFiles();
+		for(File f:datas_1){
+			if(f.getName().contains(dataId))
+				return f;
+		}
+		File data_2=new File("src/main/resources/stock/users/"+workerId+"/"+dataSetId+"/complete");
+		File[] datas_2=data_2.listFiles();
+		for(File f:datas_2){
+			if(f.getName().contains(dataId))
+				return f;
+		}
+		return null;
+	}
 }
