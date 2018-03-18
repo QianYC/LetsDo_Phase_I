@@ -26,8 +26,8 @@ public class UserController {
 	public String visitRegisterPage(Model model){
 		
 		model.addAttribute("user", new User());
-//		return "register";
-		return "addUser";
+		return "register";
+//		return "addUser";
 	}
 	
 	@PostMapping("/register")
@@ -47,11 +47,11 @@ public class UserController {
 	}
 	
 	@PostMapping("/login")
-	@ApiOperation(value = "用户登录，成功后返回用户主界面；失败则返回登录界面，显示错误信息")
-	public String login(@RequestParam("userId")String id
+	@ApiOperation(value = "用户登录，成功后返回用户工作界面；失败则返回登录界面，显示错误信息")
+	public String login(@RequestParam("userId")String userId
 			,@RequestParam("password")String password){
-		if(userService.login(id, password))
-			return "workSpace";
+		if(userService.login(userId, password))
+			return "redirect:/workSpace/"+userId;
 		else
 			return "login";
 	}
