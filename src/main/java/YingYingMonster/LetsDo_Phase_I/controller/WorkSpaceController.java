@@ -2,17 +2,14 @@ package YingYingMonster.LetsDo_Phase_I.controller;
 
 import java.util.ArrayList;
 
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import YingYingMonster.LetsDo_Phase_I.model.User;
@@ -33,7 +30,12 @@ public class WorkSpaceController {
 	private DataService dataService;
 	@Autowired
 	private UserService userService;
-	
+
+	@GetMapping("/test")
+	public String test(){
+		return "mainPage";
+	}
+
 	@GetMapping("/{id}")
 	@ApiOperation(value="返回用户工作间页面",notes="工作间页面上有其他按钮可以处理更多事务")
 	public void visitWorkSpace(@PathVariable("id")String id,Model model){
