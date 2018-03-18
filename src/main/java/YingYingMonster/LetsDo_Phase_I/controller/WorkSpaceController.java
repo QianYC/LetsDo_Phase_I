@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import YingYingMonster.LetsDo_Phase_I.model.User;
 import YingYingMonster.LetsDo_Phase_I.service.DataService;
 import YingYingMonster.LetsDo_Phase_I.service.RepositoryService;
+import YingYingMonster.LetsDo_Phase_I.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -28,10 +31,21 @@ public class WorkSpaceController {
 	private RepositoryService repoService;
 	@Autowired
 	private DataService dataService;
+	@Autowired
+	private UserService userService;
 	
 	@GetMapping("/{id}")
-	@ApiOperation(value="返回用户工作间页面",notes="根据String列表显示文件夹结构")
-	public String visitWorkSpace(Model model,@PathVariable("id") String id){
+	@ApiOperation(value="返回用户工作间页面",notes="工作间页面上有其他按钮可以处理更多事务")
+	public void visitWorkSpace(@PathVariable("id")String id,Model model){
+		
+		User user=userService.findUser(id);
+		model.addAttribute("user", user);
+	}
+	
+	
+	@GetMapping("/projects/{id}")
+	@ApiOperation(value="查看用户的project",notes="根据String列表显示文件夹结构")
+	public String viewProjects(Model model,@PathVariable("id") String id){
 		
 		ArrayList<String> files=null;
 		try {
@@ -48,7 +62,7 @@ public class WorkSpaceController {
 		return "workSpace";
 	}
 	
-	@GetMapping("/{id}/**")
+	@GetMapping("/projects/{id}/**")
 	@ApiOperation(value="返回对应用户对应目录下的文件夹名称")
 	@ResponseBody
 	public String viewSubDirs(@PathVariable("id")String id,

@@ -29,7 +29,6 @@ public class UserController {
 		
 		model.addAttribute("user", new User());
 		return "register";
-//		return "addUser";
 	}
 	
 	@PostMapping("/register")

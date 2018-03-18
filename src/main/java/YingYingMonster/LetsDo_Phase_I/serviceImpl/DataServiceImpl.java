@@ -38,15 +38,15 @@ public class DataServiceImpl implements DataService {
 	}
 
 	@Override
-	public File downloadData(String workerId, String dataId) {
-		// TODO Auto-generated method stub
-		return fileDao.downloadData(workerId, dataId);
-	}
-
-	@Override
 	public void uploadDataSet(String publisherId, String fileId, MultipartFile file, Requirement requirement) throws IOException {
 		// TODO Auto-generated method stub
 		fileDao.uploadDataSet(publisherId, fileId, file.getBytes(), requirement);
+	}
+
+	@Override
+	public File downloadData(String workerId, String dataId, String dataSetId) {
+		// TODO Auto-generated method stub
+		return fileDao.downloadData(workerId, dataId, dataSetId);
 	}
 
 }

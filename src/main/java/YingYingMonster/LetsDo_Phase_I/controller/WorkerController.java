@@ -47,7 +47,8 @@ public class WorkerController {
 	@PostMapping("/download/one")
 	@ApiOperation(value="下载单个数据")
 	public File downloadData(@RequestParam("workerId")String workerId,
+			@RequestParam("dataSetId")String dataSetId,
 			@RequestParam("dataId")String dataId){
-		return dataService.downloadData(workerId, dataId);
+		return dataService.downloadData(workerId, dataId,dataSetId);
 	}
 }

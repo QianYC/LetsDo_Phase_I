@@ -34,9 +34,10 @@ public interface FileDAO {
 	 * 单个下载数据
 	 * @param workerId 工人id
 	 * @param dataId 数据id
+	 * @param dataSetId 数据集id
 	 * @return 数据
 	 */
-	public File downloadData(String workerId,String dataId);
+	public File downloadData(String workerId,String dataId,String dataSetId);
 
 	/**
 	 * 
