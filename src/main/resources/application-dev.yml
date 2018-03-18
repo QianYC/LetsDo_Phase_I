@@ -13,8 +13,7 @@ spring:
       strategy:
         content:
           enabled: true
-          paths:
-          - /**
+          paths: /**
           
 server:
   port: 8081

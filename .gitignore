@@ -13,6 +13,5 @@ workspace.xml
 .idea/
 out/
 target/
-ERPnju/ERPServer/account books/info\.db
 /.recommenders/
 /target/
