@@ -13,6 +13,8 @@ import YingYingMonster.LetsDo_Phase_I.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+import javax.annotation.Generated;
+
 @Controller
 @RequestMapping("/user")
 @Api()
