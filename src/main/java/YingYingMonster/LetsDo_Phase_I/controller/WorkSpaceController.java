@@ -36,10 +36,11 @@ public class WorkSpaceController {
 	
 	@GetMapping("/{id}")
 	@ApiOperation(value="返回用户工作间页面",notes="工作间页面上有其他按钮可以处理更多事务")
-	public void visitWorkSpace(@PathVariable("id")String id,Model model){
+	public String visitWorkSpace(@PathVariable("id")String id,Model model){
 		
 		User user=userService.findUser(id);
 		model.addAttribute("user", user);
+		return "workSpace";
 	}
 	
 	

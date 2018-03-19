@@ -20,6 +20,8 @@ import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.compress.archivers.zip.ZipArchiveInputStream;
 import org.apache.commons.compress.utils.IOUtils;
 import org.springframework.stereotype.Component;
+
+import YingYingMonster.LetsDo_Phase_I.LetsDoPhaseIApplication;
 import YingYingMonster.LetsDo_Phase_I.dao.FileDAO;
 import YingYingMonster.LetsDo_Phase_I.model.Requirement;
 import YingYingMonster.LetsDo_Phase_I.model.Tag;
@@ -42,9 +44,12 @@ public class FileDAOImpl implements FileDAO {
 
 	@Override
 	public File downloadDataSet(String workerId, String dataSetId) {
+		
 		String[] name=dataSetId.split("_");
-		File downloadDataSet=new File("src/main/resources/stock/projects/"+dataSetId+"/"+name[1]+".zip");
-		File workerNewFile=new File("src/main/resources/stock/users/"+workerId+"/"+dataSetId+"/imcomplete");
+		File downloadDataSet=new File("src/main/resources/stock/projects/"
+				+dataSetId+"/"+name[1]+".zip");
+		File workerNewFile=new File("src/main/resources/stock/users/"
+				+workerId+"/"+dataSetId+"/imcomplete");
 		if(workerNewFile.exists())
 			return null;
 		workerNewFile.mkdirs();
@@ -145,4 +150,11 @@ public class FileDAOImpl implements FileDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public boolean forkDataSetToAccount(String workerId, String dataSetId, String sourcePath) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

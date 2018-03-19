@@ -23,7 +23,16 @@ public interface FileDAO {
 	public void uploadTags(String workerId,File zipFile);
 	
 	/**
-	 * 下载整个数据集
+	 * 把数据集添加到用户仓库
+	 * @param workerId 工人id
+	 * @param dataSetId 数据集id（用户输入）
+	 * @param sourcePath 源文件路径
+	 * @return
+	 */
+	public boolean forkDataSetToAccount(String workerId,String dataSetId,String sourcePath);
+	
+	/**
+	 * 下载整个数据集到客户端
 	 * @param workerId 工人id
 	 * @param dataSetId 数据集id
 	 * @return zip形式数据集
@@ -31,7 +40,7 @@ public interface FileDAO {
 	public File downloadDataSet(String workerId,String dataSetId);
 	
 	/**
-	 * 单个下载数据
+	 * 单个下载数据到客户端
 	 * @param workerId 工人id
 	 * @param dataId 数据id
 	 * @param dataSetId 数据集id
