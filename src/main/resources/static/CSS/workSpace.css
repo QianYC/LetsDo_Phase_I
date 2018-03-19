@@ -1,8 +1,43 @@
 @charset "UTF-8";
  #penal {
-        width: 600px;
-        height: 600px;
-        background-image: url(../a.JPG);
+	 	position: absolute;
+	 	left: 200px;
+	 	top: 50px;
+        width: 650px;
+        height: 500px;
+        background-image: url(../pic/picture.png);
 	 	background-size: contain;
 	  	background-repeat: no-repeat;
+	 	border-style: inset;
+		border-color: #550994;
+	   	border-width: medium;
     }
+
+ #tools {
+	 	position: absolute;
+	 	left: 60px;
+	 	top: 50px;
+	 	border-style: inset;
+		border-color: #2107CD;
+	   	border-width: medium;
+	 	
+	 
+	
+}
+
+ #pencil{
+	width:40px;
+	height:40px;
+   }
+ #line{
+	width:40px;
+	height:40px;
+   }
+ #square{
+	width:40px;
+	height:40px;
+   }
+ #circle{
+	width:40px;
+	height:40px;
+   }
