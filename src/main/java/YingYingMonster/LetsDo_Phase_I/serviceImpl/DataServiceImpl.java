@@ -32,7 +32,7 @@ public class DataServiceImpl implements DataService {
 	}
 
 	@Override
-	public File downloadDataSet(String workerId, String dataSetId) {
+	public byte[] downloadDataSet(String workerId, String dataSetId) {
 		// TODO Auto-generated method stub
 		return fileDao.downloadDataSet(workerId, dataSetId);
 	}

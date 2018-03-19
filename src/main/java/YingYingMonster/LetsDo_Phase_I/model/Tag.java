@@ -11,6 +11,8 @@ import java.util.Map;
  */
 public class Tag {
 
+	private String dataSetId,imgId;//对应的数据集id,图片id
+	
 	private Map<String,String>tags;//各种属性的标签
 	
 	private Map<Integer,String>sentences;//描述性的语句
@@ -27,6 +29,32 @@ public class Tag {
 		coordinates=new ArrayList<>();
 		
 	}
+	
+	
+
+	public String getDataSetId() {
+		return dataSetId;
+	}
+
+
+
+	public void setDataSetId(String dataSetId) {
+		this.dataSetId = dataSetId;
+	}
+
+
+
+	public String getImgId() {
+		return imgId;
+	}
+
+
+
+	public void setImgId(String imgId) {
+		this.imgId = imgId;
+	}
+
+
 
 	public Map<String, String> getTags() {
 		return tags;
