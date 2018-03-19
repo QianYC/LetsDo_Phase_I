@@ -13,6 +13,7 @@
             <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
         <script src="/js/main/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        <script src="/js/util/cookie.js"></script>
     </head>
     
     <body>
@@ -27,7 +28,7 @@
                 <div class="nav-collapse collapse">
                     <ul class="nav pull-right">
                         <li class="dropdown">
-                            <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> Vincent Gabriel <i class="caret"></i>
+                            <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user"></i> <span  id="username">error</span><i class="caret"></i>
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
@@ -171,6 +172,12 @@
                 <div class="col-md-12 text-center"><p><small>&copy; All Rights Reserved. More Information <a href="mailto:161250103@smail.nju.edu.cn" target="_blank" title="发送邮件">站长邮箱</a></small></p></div>
             </footer>
         </div>
+
+    <script>
+        window.onload=function () {
+            document.getElementById("username").innerHTML=getCookie("username");
+        }
+    </script>
         <!--/.fluid-container-->
         <script src="/js/main/mainJquery-1.9.1.min.js"></script>
         <script src="/js/main/mainBootstrap.min.js"></script>

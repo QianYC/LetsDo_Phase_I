@@ -31,11 +31,6 @@ public class WorkSpaceController {
 	@Autowired
 	private UserService userService;
 
-	@GetMapping("/test")
-	public String test(){
-		return "mainPage";
-	}
-
 	@GetMapping("/{id}")
 	@ApiOperation(value="返回用户工作间页面",notes="工作间页面上有其他按钮可以处理更多事务")
 	public void visitWorkSpace(@PathVariable("id")String id,Model model){
