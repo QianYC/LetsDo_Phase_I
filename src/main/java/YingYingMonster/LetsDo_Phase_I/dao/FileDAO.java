@@ -25,11 +25,12 @@ public interface FileDAO {
 	/**
 	 * 把数据集添加到用户仓库
 	 * @param workerId 工人id
-	 * @param dataSetId 数据集id（用户输入）
-	 * @param sourcePath 源文件路径
+	 * @param dataSetId 数据集id
+	 * @param publisherId 发布者id
 	 * @return
 	 */
-	public boolean forkDataSetToAccount(String workerId,String dataSetId,String sourcePath);
+	public boolean forkDataSetToAccount(String workerId,String dataSetId
+			,String publisherId);
 	
 	/**
 	 * 下载整个数据集到客户端
@@ -37,7 +38,7 @@ public interface FileDAO {
 	 * @param dataSetId 数据集id
 	 * @return zip形式数据集
 	 */
-	public File downloadDataSet(String workerId,String dataSetId);
+	public byte[] downloadDataSet(String workerId,String dataSetId);
 	
 	/**
 	 * 单个下载数据到客户端
@@ -51,9 +52,10 @@ public interface FileDAO {
 	/**
 	 * 
 	 * @param publisherId 发布者id
-	 * @param fileId 文件id
+	 * @param dataSetId 文件id
 	 * @param bytes 文件内容
 	 * @param requirement 要求说明
+	 * @return 上传成功与否
 	 */
-	public void uploadDataSet(String publisherId, String fileId, byte[] bytes, Requirement requirement);
+	public boolean uploadDataSet(String publisherId, String dataSetId, byte[] bytes, Requirement requirement);
 }

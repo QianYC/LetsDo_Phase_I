@@ -8,4 +8,5 @@ public interface UserDAO {
 	public boolean login(String id,String psw);
 	public boolean modify(User newUser);
 	public User findById(String id);
+	public void delete(String userId);
 }

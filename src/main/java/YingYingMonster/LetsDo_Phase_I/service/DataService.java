@@ -41,7 +41,7 @@ public interface DataService {
 	 * @param dataSetId 数据集id
 	 * @return zip形式数据集
 	 */
-	public File downloadDataSet(String workerId,String dataSetId);
+	public byte[] downloadDataSet(String workerId,String dataSetId);
 	
 	/**
 	 * 单个下载数据

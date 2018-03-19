@@ -2,54 +2,57 @@ package YingYingMonster.LetsDo_Phase_I.daoImpl;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import org.springframework.stereotype.Component;
-
 import YingYingMonster.LetsDo_Phase_I.dao.UserDAO;
 import YingYingMonster.LetsDo_Phase_I.model.User;
-import au.com.bytecode.opencsv.CSVReader;
-import au.com.bytecode.opencsv.CSVWriter;
 
 @Component
 public class UserDAOImpl implements UserDAO {
 
 	private final static String basePath=System.getProperty("user.dir")
-			.replaceAll("\\\\", "/");
+			.replaceAll("\\\\", "/")+"/database/";
+	
+	private CSVHandler handler=new CSVHandler();
 	
 	@Override
 	public boolean register(User user) {
 		// TODO 自动生成的方法存根
 		
-		String path=basePath+"/database/repository/"+user.getId();
+		String path=basePath+"users/"+user.getId();
 		
 		if(this.findById(user.getId())!=null)
 			return false;
 		else{
 			//为新用户创建文件夹
+			File upload=new File(basePath+"repository/"+user.getId());
+			upload.mkdirs();
+			
 			File newUser=new File(path);
 			if(!newUser.exists())
 				newUser.mkdirs();
 			
-			File f=new File(path+"/upload");
+			File f=new File(path+"/tags");
 			f.mkdirs();
-			f=new File(path+"/fork");
-			f.mkdirs();
+			f=new File(path+"/fork.csv");
+			try {
+				f.createNewFile();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			List<String[]>list=null;
 			try {
-				list=readCSV();
+				list=handler.readCSV(basePath+"users.csv");
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			String[]attrs={user.getId(),user.getName(),user.getPw()};
 			list.add(attrs);
-			if(this.writeCSV(list))
+			if(handler.writeCSV(list,basePath+"users.csv"))
 				return true;
 			else 
 				return false;
@@ -79,7 +82,7 @@ public class UserDAOImpl implements UserDAO {
 		
 		List<String[]>list=null;
 		try {
-			list=readCSV();
+			list=handler.readCSV(basePath+"users.csv");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -97,7 +100,7 @@ public class UserDAOImpl implements UserDAO {
 				}
 			}
 			list.add(attrs);
-			return writeCSV(list);
+			return handler.writeCSV(list,basePath+"users.csv");
 		}
 		
 	}
@@ -107,7 +110,7 @@ public class UserDAOImpl implements UserDAO {
 		// TODO 自动生成的方法存根
 		List<String[]> users=null;
 		try {			
-			users=this.readCSV();						
+			users=handler.readCSV(basePath+"users.csv");						
 		} catch (IOException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
@@ -126,48 +129,45 @@ public class UserDAOImpl implements UserDAO {
 		return null;
 	}
 
-	private List<String[]> readCSV() throws FileNotFoundException {
-		
-		String path=basePath+"/database/users.csv";
-		File users=new File(path);
-		
-		CSVReader cr=new CSVReader(new FileReader(users));
-		List<String[]> list=null;
-		try {
-			list = cr.readAll();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally{
-			try {
-				cr.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
-		return list;
-	}
 	
-	private boolean writeCSV(List<String[]>val){
-		String path=basePath+"/database/users.csv";
-		File users=new File(path);
-		CSVWriter cw=null;
+	
+	@Override
+	public void delete(String userId){
+		
+		List<String[]>list=null;
 		try {
-			cw = new CSVWriter(new FileWriter(users,false),',');
-		} catch (IOException e) {
+			list=handler.readCSV(basePath+"users.csv");
+		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		cw.writeAll(val);
-		try {
-			cw.flush();
-			cw.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return true;
+		
+		if(list!=null){
+			//把用户从记录中删去
+			Iterator<String[]>it=list.iterator();
+			while(it.hasNext()){
+				if(it.next()[0].equals(userId)){
+					it.remove();
+					break;
+				}
+			}
+			
+			handler.writeCSV(list,basePath+"users.csv");
+			
+			//删除用户文件夹
+			String path=basePath+"users/"+userId;
+			File forkRecord=new File(path+"/fork.csv");
+			forkRecord.delete();
+			
+			File tags=new File(path+"/tags");
+			String[]subDir=tags.list();
+			for(String s:subDir){
+				File f=new File(tags.getPath()+"/"+s);
+				f.delete();
+			}
+			tags.delete();
+			File user=new File(path);
+			user.delete();
+		}		
 	}
 }
