@@ -37,12 +37,12 @@ public class WorkerController {
 		dataService.uploadTag(workerId, tag);
 	}
 	
-	@PostMapping("/download/all")
-	@ApiOperation(value = "下载整个数据集")
-	public File downloadDataSet(@RequestParam ("workerId")String workerId
-			,@RequestParam ("dataSetId")String dataSetId){
-		return dataService.downloadDataSet(workerId, dataSetId);
-	}
+//	@PostMapping("/download/all")
+//	@ApiOperation(value = "下载整个数据集")
+//	public File downloadDataSet(@RequestParam ("workerId")String workerId
+//			,@RequestParam ("dataSetId")String dataSetId){
+//		return dataService.downloadDataSet(workerId, dataSetId);
+//	}
 	
 	@PostMapping("/download/one")
 	@ApiOperation(value="下载单个数据")
