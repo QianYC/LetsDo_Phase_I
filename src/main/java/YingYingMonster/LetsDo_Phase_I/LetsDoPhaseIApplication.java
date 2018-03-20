@@ -51,5 +51,10 @@ public class LetsDoPhaseIApplication {
 		File userDir=new File(root+"/users");
 		if(!userDir.exists())
 			userDir.mkdirs();
+		
+		String projectRoot=root+"/projects";
+		File projectsRoot=new File(projectRoot);
+		if(!projectsRoot.exists())
+			projectsRoot.mkdirs();
 	}
 }
