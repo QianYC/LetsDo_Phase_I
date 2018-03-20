@@ -42,10 +42,10 @@
 	<!--[if lt IE 9]>
 	<script src="/js/login/respond.min.js"></script>
 	<![endif]-->
+	<script src="/js/util/cookie.js"></script>
 
 	</head>
 	<body class="style-3">
-
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 text-center">
@@ -61,7 +61,7 @@
 					
 
 					<!-- Start Sign In Form -->
-					<form action="/user/login" method="post" class="fh5co-form animate-box" data-animate-effect="fadeIn">
+					<form id="loginForm" action="/user/login" method="post"  class="fh5co-form animate-box" data-animate-effect="fadeIn">
 						<h2>登录</h2>
 						<div class="form-group">
 							<label for="username" class="sr-only">Username</label>
@@ -90,7 +90,21 @@
 				<div class="col-md-12 text-center"><p><small>&copy; All Rights Reserved. More Information <a href="mailto:161250103@smail.nju.edu.cn" target="_blank" title="发送邮件">站长邮箱</a></small></p></div>
 			</div>
 		</div>
-	
+
+		<script>
+            window.onload=function () {
+                var oUser=document.getElementById("username");
+                var oForm=document.getElementById("loginForm");
+                oForm.onsubmit=function () {
+                    setCookie("username",oUser.value,14);
+                }
+                var cookie=getCookie("username");
+                if(cookie!=undefined) {
+                    oUser.value = cookie;
+                }
+            }
+		</script>
+
 	<!-- jQuery -->
 	<script src="/js/login/jquery.min.js"></script>
 	<!-- Bootstrap -->

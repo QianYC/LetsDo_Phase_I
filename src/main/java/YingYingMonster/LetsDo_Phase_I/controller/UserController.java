@@ -23,21 +23,21 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping("/register")
+	@GetMapping("/signUp")
 	@ApiOperation(value = "访问用户注册界面")
 	public String visitRegisterPage(Model model){
 		
 		model.addAttribute("user", new User());
-		return "register";
+		return "signUp";
 	}
 	
-	@PostMapping("/register")
+	@PostMapping("/signUp")
 	@ApiOperation(value = "注册新用户，注册成功后跳转至登录界面；失败则返回注册界面，显示错误信息")
 	public String register(@ModelAttribute("user")User user){
 		if(userService.register(user))
 			return "redirect:/user/login";
 		else
-			return "register";
+			return "signUp";
 	}
 	
 	@GetMapping("/login")
@@ -52,7 +52,7 @@ public class UserController {
 	public String login(@RequestParam("userId")String userId
 			,@RequestParam("password")String password){
 		if(userService.login(userId, password))
-			return "redirect:/workSpace/"+userId;
+			return "redirect:/workSpace/project/"+userId;
 		else
 			return "login";
 	}
