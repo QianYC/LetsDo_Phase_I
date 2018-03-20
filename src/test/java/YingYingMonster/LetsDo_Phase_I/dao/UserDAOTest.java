@@ -1,4 +1,4 @@
-package YingYingMonster.LetsDo_Phase_I.DAO;
+package YingYingMonster.LetsDo_Phase_I.dao;
 
 import static org.junit.Assert.*;
 

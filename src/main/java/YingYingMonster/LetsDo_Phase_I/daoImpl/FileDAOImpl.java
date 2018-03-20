@@ -29,6 +29,44 @@ public class FileDAOImpl implements FileDAO {
 	
 	private CSVHandler handler=new CSVHandler();
 	
+	/**
+	 * 找到数据集在数据库中的位置
+	 * @param workerId
+	 * @param dataSetId
+	 * @return
+	 */
+	private String findDataSet(String workerId,String dataSetId){
+		List<String[]>uploadRecords=null;
+		try {
+			uploadRecords=handler.readCSV(basePath+"uploadRecord.csv");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(uploadRecords!=null){
+			for(String[]temp:uploadRecords)
+				if(temp[0].equals(workerId)&&temp[1].equals(dataSetId))
+					return basePath+"repository/"+workerId
+							+"/"+dataSetId;//worker就是publisher
+		}
+		
+		List<String[]>fork=null;
+		try {
+			fork=handler.readCSV(basePath+"users/"+workerId+"/fork.csv");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(fork!=null){
+			for(String[]temp:fork)
+				if(temp[1].equals(dataSetId))
+					return basePath+"repository/"+temp[0]//找到相应的发布者
+							+"/"+dataSetId;
+		}
+		
+		return null;
+	}
+	
 	@Override
 	public void uploadTag(String workerId, Tag tag) {
 		// TODO Auto-generated method stub
@@ -43,47 +81,24 @@ public class FileDAOImpl implements FileDAO {
 
 	@Override
 	public byte[] downloadDataSet(String workerId, String dataSetId) {
-		List<String[]>uploadRecords=null;
-		try {
-			uploadRecords=handler.readCSV(basePath+"uploadRecord.csv");
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if(uploadRecords!=null){
-			for(String[]temp:uploadRecords)
-				if(temp[0].equals(workerId)&&temp[1].equals(dataSetId))
-					return readZip(workerId,dataSetId);//worker就是publisher
-		}
 		
-		List<String[]>fork=null;
-		try {
-			fork=handler.readCSV(basePath+"users/"+workerId+"/fork.csv");
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if(fork!=null){
-			for(String[]temp:fork)
-				if(temp[0].equals(workerId)&&temp[1].equals(dataSetId))
-					return readZip(temp[0],temp[1]);//找到相应的发布者
-		}
-		
-		return null;
+		String path=findDataSet(workerId,dataSetId);
+		if(path==null)
+			return null;
+		else
+			return readFileAsStream(path+"/"+dataSetId+".zip");
 	}
 
-	private byte[]readZip(String publisherId,String dataSetId){
+	private byte[]readFileAsStream(String path){
 		
 		byte[]bytes=null;
-		String path=basePath+"repository/"+publisherId
-				+"/"+dataSetId+"/"+dataSetId+".zip";
-		File zip=new File(path);
-		
-		if(!zip.exists())
+
+		File file=new File(path);		
+		if(!file.exists())
 			return null;
 		
 		try {
-			FileInputStream fis=new FileInputStream(zip);
+			FileInputStream fis=new FileInputStream(file);
 			byte[]temp=new byte[1024];
 			ByteArrayOutputStream baos=new ByteArrayOutputStream();
 			int len=-1;
@@ -129,6 +144,19 @@ public class FileDAOImpl implements FileDAO {
 		String[]val={publisherId,dataSetId};
 		uploadRecords.add(val);
 		handler.writeCSV(uploadRecords, basePath+"uploadRecord.csv");
+//		//在该用户的fork记录中也保存一份，便于查询
+//		List<String[]>fork=null;
+//		try {
+//			fork=handler.readCSV(basePath+"users/"+publisherId+"/fork.csv");
+//		} catch (FileNotFoundException e2) {
+//			// TODO Auto-generated catch block
+//			e2.printStackTrace();
+//		}
+//		if(fork==null)
+//			return false;
+//		fork.add(val);
+//		handler.writeCSV(fork, basePath+"users/"+publisherId+"/fork.csv");
+//		
 		
 		File dir=new File(basePath+"repository/"+publisherId+"/"+dataSetId);
 		dir.mkdirs();
@@ -173,9 +201,13 @@ public class FileDAOImpl implements FileDAO {
     }
 
 	@Override
-	public File downloadData(String workerId, String dataId, String dataSetId) {
+	public byte[] downloadData(String workerId, String dataId, String dataSetId) {
 		// TODO Auto-generated method stub
-		return null;
+		String path=findDataSet(workerId,dataSetId);
+		if(path==null)
+			return null;
+		else
+			return readFileAsStream(path+"/"+dataSetId)//应支持多种类型的图片
 	}
 
 	@Override
@@ -203,6 +235,7 @@ public class FileDAOImpl implements FileDAO {
 			if(!flag)//没有在上传记录中找到数据集
 				return false;
 			
+			//在上传记录中找到数据集
 			File fork=new File(basePath+"users/"+workerId+"/fork.csv");
 			List<String[]>forkRecords=null;
 			
