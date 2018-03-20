@@ -1,28 +1,30 @@
 @charset "UTF-8";
  #penal {
 	 	position: absolute;
-	 	left: 200px;
-	 	top: 50px;
+	 	left: 240px;
+	 	top: 70px;
         width: 650px;
         height: 500px;
-        background-image: url(../pic/picture.png);
+	 	background-color: #FFFFFF;
 	 	background-size: contain;
 	  	background-repeat: no-repeat;
-	 	border-style: inset;
+	 	border-style:inset;
 		border-color: #550994;
 	   	border-width: medium;
     }
 
  #tools {
 	 	position: absolute;
-	 	left: 60px;
-	 	top: 50px;
+	 	left: 80px;
+	 	top: 70px;
 	 	border-style: inset;
 		border-color: #2107CD;
 	   	border-width: medium;
-	 	
-	 
-	
+	 	width: 100px;
+	   background-color: rgba(215,15,18,0.24)
+}
+body{
+	background-color: #C0C0B9
 }
 
  #pencil{
@@ -41,3 +43,35 @@
 	width:40px;
 	height:40px;
    }
+ #rubber{
+	width:40px;
+	height:40px;
+   }
+
+#buttons{
+	position: absolute;
+	
+}
+
+#submit{
+	width:40px;
+	height:40px;
+	position: absolute;
+	left: 450px;
+	top: 600px;
+}
+
+#next{
+	width:40px;
+	height:40px;
+    position: absolute;
+	left: 600px;
+	top: 600px;
+}
+
+#pencilSize{
+	width: 90px;
+}
+#rubberSize{
+	width: 90px;
+}
