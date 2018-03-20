@@ -1,54 +1,67 @@
 package YingYingMonster.LetsDo_Phase_I.service;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.zip.ZipFile;
-
+import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
-
-import YingYingMonster.LetsDo_Phase_I.model.Requirement;
 import YingYingMonster.LetsDo_Phase_I.model.Tag;
 
 public interface DataService {
 
 	/**
-	 * 上传数据集
-	 * @param publisherId 发布人id
-	 * @param fileId 
-	 * @param zipFile zip形式的数据集
-	 * @param requirement 要求说明书
-	 * @throws IOException 读取文件内容失败
+	 * 
+	 * @param userId
+	 * @return 查看所有项目名
 	 */
-	public void uploadDataSet(String publisherId,String fileId, MultipartFile file,Requirement requirement) throws IOException;
+	public List<String>viewAllProjects(String userId);
 	
 	/**
-	 * 上传单张做好的标记
-	 * @param workerId 工人id
-	 * @param tag 标记
+	 * 
+	 * @param userId
+	 * @param projectId
+	 * @return 查看未标记的数据名
 	 */
-	public void uploadTag(String workerId,Tag tag);
+	public List<String>viewUndoData(String userId,String projectId);
 	
 	/**
-	 * 批量上传做好的标记
-	 * @param workerId 工人id
-	 * @param zipFile 标记
+	 * 
+	 * @param userId
+	 * @param projectId
+	 * @return 查看已标记的数据名
 	 */
-	public void uploadTags(String workerId,File zipFile);
+	public List<String>viewDoneData(String userId,String projectId);
 	
 	/**
-	 * 下载整个数据集
-	 * @param workerId 工人id
-	 * @param dataSetId 数据集id
-	 * @return zip形式数据集
+	 * 
+	 * @param userId
+	 * @param projectId
+	 * @param dataId
+	 * @return 取得一个数据
 	 */
-	public byte[] downloadDataSet(String workerId,String dataSetId);
+	public String getAData(String userId,String projectId,String dataId);
 	
 	/**
-	 * 单个下载数据
-	 * @param workerId 工人id
-	 * @param dataId 数据id
-	 * @param dataSetId 数据集id
-	 * @return 数据
+	 * 
+	 * @param userId
+	 * @param projectId
+	 * @param tagId
+	 * @return 取得一个Tag
 	 */
-	public File downloadData(String workerId,String dataId,String dataSetId);
+	public Tag getATag(String userId,String projectId,String tagId);
+	
+	/**
+	 * 
+	 * @param userId
+	 * @param dataSet
+	 * @return 上传数据集，返回生成的项目id
+	 */
+	public String uploadDataSet(String userId,MultipartFile dataSet);
+	
+	/**
+	 * 
+	 * @param userId
+	 * @param projectId
+	 * @param tagId
+	 * @param tag
+	 * @return 上传Tag结果
+	 */
+	public boolean uploadTag(String userId,String projectId,String tagId,Tag tag);
 }

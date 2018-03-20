@@ -10,7 +10,7 @@ var Mark = function (){
 	this.color = document.getElementById("color");
 	this.lineWidth = document.getElementById("lineWidth");
 	this.tools = document.getElementById("tools");
-	this.img = new Image();
+	this.img = new Image();//动态绘制矩形、圆形
 };
  
 Mark.prototype.init = function(){
@@ -22,6 +22,9 @@ Mark.prototype.init = function(){
 	this.tools.addEventListener('click', function(event){
 		if(event.target.id === "pencil"){
 			self.type = "pencil";
+		}
+		else if(event.target.id === "line"){
+			self.type = "line";
 		}
 		else if(event.target.id === "square"){
 			self.type = "square";
@@ -42,6 +45,20 @@ Mark.prototype.init = function(){
 	this.penal.addEventListener("mouseup", function(event){//松开鼠标
 		if(self.isDraw){
 			//self.pen.closePath();
+			var x = event.pageX - self.penal.offsetLeft;
+			var y = event.pageY - self.penal.offsetTop ;
+			if(self.type === "line"){//直线
+				self.pen.moveTo(self.originX,self.originY);
+				self.pen.lineTo(x,y);
+				self.pen.stroke();
+			}
+			else if(self.type === "square"){//矩形
+				self.pen.strokeRect(self.originX,self.originY,x-self.originX,y-self.originY);
+			}
+			else if(self.type === "circle"){//圆形
+				self.pen.arc(self.originX,self.originY,Math.sqrt((x-self.originX)*(x-self.originX)+(y-self.originY)*(y-self.originY)),0,2*Math.PI);
+				self.pen.stroke();
+			}
 			self.isDraw = false;
 		}
 	},false);
@@ -54,6 +71,13 @@ Mark.prototype.init = function(){
 			if(self.type === "pencil"){//铅笔
 				self.pen.lineTo(x,y);
 				self.pen.stroke();
+			}
+			else if(self.type === "line"){//直线
+//				self.pen.moveTo(self.originX,self.originY);
+//				self.pen.lineTo(x,y);
+//				self.pen.stroke();
+				//尝试清除上一次的痕迹
+//				for(let tempX = self.originX , tempY = self.originY ; tempX < x && tempY )
 			}
 			else if(self.type === "square"){//方形
 				
@@ -68,5 +92,7 @@ Mark.prototype.init = function(){
 	this.penal.addEventListener("mousedown", function(event){//按下鼠标
 		self.isDraw = true;
 		self.pen.beginPath();
+		self.originX = event.pageX - self.penal.offsetLeft;
+		self.originY  = event.pageY - self.penal.offsetTop ;
 	},false);
 };

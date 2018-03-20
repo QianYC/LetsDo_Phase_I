@@ -47,7 +47,7 @@ public interface FileDAO {
 	 * @param dataSetId 数据集id
 	 * @return 数据
 	 */
-	public File downloadData(String workerId,String dataId,String dataSetId);
+	public byte[] downloadData(String workerId,String dataId,String dataSetId);
 
 	/**
 	 * 
