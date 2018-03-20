@@ -207,7 +207,7 @@ public class FileDAOImpl implements FileDAO {
 		if(path==null)
 			return null;
 		else
-			return readFileAsStream(path+"/"+dataSetId)//应支持多种类型的图片
+			return readFileAsStream(path+"/"+dataSetId);//应支持多种类型的图片
 	}
 
 	@Override

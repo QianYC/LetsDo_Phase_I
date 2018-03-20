@@ -1,6 +1,7 @@
 package YingYingMonster.LetsDo_Phase_I.dao;
 
 import java.io.File;
+import java.util.List;
 import java.util.zip.ZipFile;
 
 import YingYingMonster.LetsDo_Phase_I.model.Requirement;
@@ -13,14 +14,8 @@ public interface FileDAO {
 	 * @param workerId 工人id
 	 * @param tag 标记
 	 */
-	public void uploadTag(String workerId,Tag tag);
+	public boolean uploadTag(String workerId,Tag tag);
 	
-	/**
-	 * 批量上传做好的标记
-	 * @param workerId 工人id
-	 * @param zipFile 标记
-	 */
-	public void uploadTags(String workerId,File zipFile);
 	
 	/**
 	 * 把数据集添加到用户仓库
@@ -29,16 +24,16 @@ public interface FileDAO {
 	 * @param publisherId 发布者id
 	 * @return
 	 */
-	public boolean forkDataSetToAccount(String workerId,String dataSetId
-			,String publisherId);
+	public boolean forkDataSetToAccount(String workerId,String publisherId,String dataSetId);
 	
 	/**
-	 * 下载整个数据集到客户端
-	 * @param workerId 工人id
-	 * @param dataSetId 数据集id
-	 * @return zip形式数据集
+	 * 
+	 * @param workerId
+	 * @param dataSetId
+	 * @param tagId
+	 * @return
 	 */
-	public byte[] downloadDataSet(String workerId,String dataSetId);
+	public Tag getATag(String workerId,String dataSetId,String tagId) ;
 	
 	/**
 	 * 单个下载数据到客户端
@@ -47,7 +42,7 @@ public interface FileDAO {
 	 * @param dataSetId 数据集id
 	 * @return 数据
 	 */
-	public byte[] downloadData(String workerId,String dataId,String dataSetId);
+	public String getAData(String workerId,String dataSetId,String dataId);
 
 	/**
 	 * 
@@ -57,5 +52,28 @@ public interface FileDAO {
 	 * @param requirement 要求说明
 	 * @return 上传成功与否
 	 */
-	public boolean uploadDataSet(String publisherId, String dataSetId, byte[] bytes, Requirement requirement);
+	public boolean uploadDataSet(String publisherId, String dataSetId, byte[] bytes);
+	
+	/**
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	public List<String> getUserAllProjectsName(String userId);
+	
+	/**
+	 * 
+	 * @param userId 众包工人id
+	 * @param dataSetId 数据集id
+	 * @return 
+	 */
+	public List<String> viewUndoData(String userId,String dataSetId);
+	
+	/**
+	 * 
+	 * @param userId
+	 * @param dataSetId
+	 * @return
+	 */
+	public List<String> viewDoneData(String userId,String dataSetId);
 }
