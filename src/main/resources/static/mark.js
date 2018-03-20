@@ -1,6 +1,27 @@
 /**
  * 作为为图片做标注的逻辑实现
  */
+
+var rubberSize = 12;
+var pencilSize = 2;
+
+
+function changePencilSize(){
+	"use strict";
+	document.getElementById("penal").getContext("2d").lineWidth =  document.getElementById("pencilSize").value;
+}
+
+function changeRubberSize(){
+	"use strict";
+	rubberSize = document.getElementById("rubberSize").value;
+}
+
+function changePencilColor(){
+	"use strict";
+	//alert(document.getElementById("pencilColor").value);
+	document.getElementById("penal").getContext("2d").strokeStyle = document.getElementById("pencilColor").value;
+}
+
 var Mark = function (){
 	'use strict';
 	this.isDraw = false;//开关
@@ -16,21 +37,36 @@ var Mark = function (){
 Mark.prototype.init = function(){
 	'use strict';
 	var self = this;
-	var originX = null;
-	var originY = null;
+	this.pen.lineWidth = pencilSize;
 	
 	this.tools.addEventListener('click', function(event){
+		$(".t").css("border-style","hidden");
+	    $("#pencilSize").hide();
+		$("#rubberSize").hide();
 		if(event.target.id === "pencil"){
 			self.type = "pencil";
+			$("#pencil").css("border-style","inset");
+			 $("#pencilSize").show();
 		}
 		else if(event.target.id === "line"){
 			self.type = "line";
+			$("#line").css("border-style","inset");
+			 $("#pencilSize").show();
 		}
 		else if(event.target.id === "square"){
 			self.type = "square";
+			$("#square").css("border-style","inset");
+			 $("#pencilSize").show();
 		}
 		else if(event.target.id === "circle"){
 			self.type = "circle";
+			$("#circle").css("border-style","inset");
+			 $("#pencilSize").show();
+		}
+		else if(event.target.id === "rubber"){
+			self.type = "rubber";
+			$("#rubber").css("border-style","inset");
+			$("#rubberSize").show();
 		}
 	}, false);
 	
@@ -84,6 +120,9 @@ Mark.prototype.init = function(){
 			}
 			else if(self.type === "circle"){//圆形
 				
+			}
+			else if(self.type === "rubber"){//橡皮
+				self.pen.clearRect(x-rubberSize/2,y-rubberSize/2,rubberSize,rubberSize);
 			}
 			
 		}

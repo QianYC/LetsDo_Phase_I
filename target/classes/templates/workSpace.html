@@ -2,8 +2,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../static/CSS/workSpace.css">
-<script src="../static/mark.js"></script>
+<link rel="stylesheet" href="../CSS/workSpace.css">
+<script src="../mark.js"></script>
+<script src="../submit.js"></script>
+<script src= "../StreamSaver.js"></script>
+<script src="../jquery-3.3.1.min.js"></script>
 <script>
 	window.onload = function(){
 		var mark = new Mark();
@@ -14,11 +17,20 @@
 </head>
 <body>
 	<div id = "tools" >
-		<img alt="铅笔" id="pencil" src="../static/pic/pencil.png"><br><br>
-		<img alt="直线" id="line" src="../static/pic/line.png"><br><br>
-		<img alt="矩形" id="square" src="../static/pic/square.png"><br><br>
-		<img alt="圆形" id="circle" src="../static/pic/circle.png"><br><br>
+		<img alt="铅笔" id="pencil" src="../pic/pencil.png" class="t"><br>
+		<img alt="直线" id="line" src="../pic/line.png" class="t"><br><br>
+		<img alt="矩形" id="square" src="../pic/square.png" class="t"><br><br>
+		<img alt="圆形" id="circle" src="../pic/circle.png" class="t"><br><br>
+		<img alt="橡皮擦" id="rubber" src="../pic/rubber.png" class="t"><br>
+		笔记颜色：<br><input type="color" id="pencilColor" onChange="changePencilColor()" /><br>
+		笔迹大小：<br><input type="range" id="pencilSize" min="0.5" max="10" onclick="changePencilSize()" size="60" /><br><br>
+		橡皮擦大小：<br><input type="range" id="rubberSize" min="0.5" max="100" onclick="changeRubberSize()"  size="60" hidden="hidden" /><br><br>
 	</div>
-<canvas id="penal" height = "500" width="650"></canvas>
+<canvas id="penal" height = "500" width="650" ></canvas>
+	<div id = "buttons">
+	    <img alt= "提交" id="submit" src="../pic/submit.png" onClick="submitAsPicture()">
+		<img alt="下一张" id="next" src="../pic/next.png" onClick="getPicture('a','s')">
+		</div>
+	<img alt= "测试" id="test">
 </body>
 </html>
