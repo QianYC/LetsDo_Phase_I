@@ -8,13 +8,18 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.compress.archivers.zip.ZipArchiveInputStream;
 import org.apache.commons.compress.utils.IOUtils;
 import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
+import org.assertj.core.util.Arrays;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import YingYingMonster.LetsDo_Phase_I.dao.FileDAO;
 import YingYingMonster.LetsDo_Phase_I.model.Requirement;
@@ -24,166 +29,11 @@ import au.com.bytecode.opencsv.CSVWriter;
 @Component
 public class FileDAOImpl implements FileDAO {
 
-	private final static String basePath=
-			System.getProperty("user.dir").replaceAll("\\\\", "/")+"/database/";
+	@Autowired private String ROOT;
 	
 	private CSVHandler handler=new CSVHandler();
 	
-	/**
-	 * 找到数据集在数据库中的位置
-	 * @param workerId
-	 * @param dataSetId
-	 * @return
-	 */
-	private String findDataSet(String workerId,String dataSetId){
-		List<String[]>uploadRecords=null;
-		try {
-			uploadRecords=handler.readCSV(basePath+"uploadRecord.csv");
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if(uploadRecords!=null){
-			for(String[]temp:uploadRecords)
-				if(temp[0].equals(workerId)&&temp[1].equals(dataSetId))
-					return basePath+"repository/"+workerId
-							+"/"+dataSetId;//worker就是publisher
-		}
-		
-		List<String[]>fork=null;
-		try {
-			fork=handler.readCSV(basePath+"users/"+workerId+"/fork.csv");
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if(fork!=null){
-			for(String[]temp:fork)
-				if(temp[1].equals(dataSetId))
-					return basePath+"repository/"+temp[0]//找到相应的发布者
-							+"/"+dataSetId;
-		}
-		
-		return null;
-	}
 	
-	@Override
-	public void uploadTag(String workerId, Tag tag) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void uploadTags(String workerId, File zipFile) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public byte[] downloadDataSet(String workerId, String dataSetId) {
-		
-		String path=findDataSet(workerId,dataSetId);
-		if(path==null)
-			return null;
-		else
-			return readFileAsStream(path+"/"+dataSetId+".zip");
-	}
-
-	private byte[]readFileAsStream(String path){
-		
-		byte[]bytes=null;
-
-		File file=new File(path);		
-		if(!file.exists())
-			return null;
-		
-		try {
-			FileInputStream fis=new FileInputStream(file);
-			byte[]temp=new byte[1024];
-			ByteArrayOutputStream baos=new ByteArrayOutputStream();
-			int len=-1;
-			while((len=fis.read(temp, 0, 1024))!=-1){
-				baos.write(temp, 0, len);
-			}
-			bytes=baos.toByteArray();
-			fis.close();
-			baos.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return bytes;
-	}
-	
-	@Override
-	public boolean uploadDataSet(String publisherId, String dataSetId, 
-			byte[] bytes, Requirement requirement) {
-		// TODO Auto-generated method stub
-		
-		if(requirement==null)
-			return false;
-		
-		List<String[]>uploadRecords=null;
-		try {
-			uploadRecords=handler.readCSV(basePath+"uploadRecord.csv");
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		if(uploadRecords==null)
-			return false;
-		
-		for(String[]temp:uploadRecords){
-			if(temp[0].equals(publisherId)&&temp[1].equals(dataSetId))
-				return false;//不能重复上传
-		}
-		//上传记录保存
-		String[]val={publisherId,dataSetId};
-		uploadRecords.add(val);
-		handler.writeCSV(uploadRecords, basePath+"uploadRecord.csv");
-//		//在该用户的fork记录中也保存一份，便于查询
-//		List<String[]>fork=null;
-//		try {
-//			fork=handler.readCSV(basePath+"users/"+publisherId+"/fork.csv");
-//		} catch (FileNotFoundException e2) {
-//			// TODO Auto-generated catch block
-//			e2.printStackTrace();
-//		}
-//		if(fork==null)
-//			return false;
-//		fork.add(val);
-//		handler.writeCSV(fork, basePath+"users/"+publisherId+"/fork.csv");
-//		
-		
-		File dir=new File(basePath+"repository/"+publisherId+"/"+dataSetId);
-		dir.mkdirs();
-		File zip=new File(dir.getPath()+"/"+dataSetId+".zip");
-		try {
-			BufferedOutputStream bos=new BufferedOutputStream(new FileOutputStream(zip));
-			bos.write(bytes);
-			bos.close();
-			unzipFile(zip);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		//保存requirement
-		File requirementTxt=new File(dir.getPath()+"/requirement.csv");
-		try {
-			CSVWriter cw=new CSVWriter(new FileWriter(requirementTxt));
-			cw.writeNext(requirement.toStringCSV());
-			cw.close();
-		} catch (IOException e) {
-			// TODO 自动生成的 catch 块
-			e.printStackTrace();
-		}
-		return true;
-	}
-
 	/*
 	 * 复制文件
 	 */
@@ -200,89 +50,131 @@ public class FileDAOImpl implements FileDAO {
         out.close();
     }
 
-	@Override
-	public byte[] downloadData(String workerId, String dataId, String dataSetId) {
-		// TODO Auto-generated method stub
-		String path=findDataSet(workerId,dataSetId);
-		if(path==null)
-			return null;
-		else
-			return readFileAsStream(path+"/"+dataSetId);//应支持多种类型的图片
-	}
+
 
 	@Override
-	public boolean forkDataSetToAccount(String workerId, String dataSetId
-			, String publisherId) {
+	public boolean uploadTag(String workerId, String projectId, String tagId,Tag tag) {
 		// TODO Auto-generated method stub
-		List<String[]>uploadRecords=null;
+		if(workerId==null||projectId==null||tagId==null||tag==null)
+			return false;
+		String path=ROOT+"/users/"+workerId+"/"+projectId+"/tags/"+tagId+".tag";
+		File file=new File(path);
+		
 		try {
-			uploadRecords=handler.readCSV(basePath+"uploadRecord.csv");
-		} catch (FileNotFoundException e) {
+			ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream(file));
+			oos.writeObject(tag);
+			oos.flush();
+			oos.close();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		if(uploadRecords!=null){
-			boolean flag=false;
-			Iterator<String[]>it=uploadRecords.iterator();
-			while(it.hasNext()){
-				String[]temp=it.next();
-				if(temp[0].equals(publisherId)&&temp[1].equals(dataSetId)){
-					flag=true;
-					break;
-				}
-			}
-			if(!flag)//没有在上传记录中找到数据集
-				return false;
-			
-			//在上传记录中找到数据集
-			File fork=new File(basePath+"users/"+workerId+"/fork.csv");
-			List<String[]>forkRecords=null;
-			
-			try {
-				forkRecords=handler.readCSV(fork.getPath());
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			if(forkRecords==null)
-				return false;
-			
-			for(String[]temp:forkRecords){
-				if(temp[0].equals(publisherId)&&temp[1].equals(dataSetId)){
-					return false;//已经fork过了
-				}
-			}
-			String[]val={publisherId,dataSetId};
-			forkRecords.add(val);
-			handler.writeCSV(forkRecords, fork.getPath());
-			return true;
-		}else
-			return false;
+		return true;
 	}
 
-	private void unzipFile(File file) throws IOException{
-		
-		System.out.println(file.getPath());
-		System.out.println(file.getParent());
-		
-		ZipArchiveInputStream is = new ZipArchiveInputStream(
-				new BufferedInputStream(new FileInputStream(file), 1024));
-		ZipArchiveEntry entry = null;
-		
-		while ((entry = is.getNextZipEntry()) != null) {
-            if (entry.isDirectory()) {
-            	File directory = new File(file.getParent(), entry.getName());
-            	directory.mkdirs();
-            }else {
-            	OutputStream ops = new BufferedOutputStream(
-            			new FileOutputStream(
-            					new File(file.getParent(), entry.getName())), 1024);
-            	IOUtils.copy(is, ops);
-            	ops.close();
-            }
-		}
-		is.close();
+
+
+	@Override
+	public boolean forkDataSetToAccount(String workerId, String publisherId, String dataSetId) {
+		// TODO Auto-generated method stub
+		return false;
 	}
+
+
+
+	@Override
+	public Tag getATag(String workerId, String dataSetId, String tagId) {
+		// TODO Auto-generated method stub
+		if(workerId==null||dataSetId==null||tagId==null)
+			return null;
+		
+		String path=ROOT+"/users/"+workerId+"/"+dataSetId+"/tags/"+tagId+".tag";
+		File file=new File(path);
+		Tag tag=null;
+		
+		try {
+			ObjectInputStream ois=new ObjectInputStream(new FileInputStream(file));
+			tag=(Tag)ois.readObject();
+			ois.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return tag;
+	}
+
+
+
+	@Override
+	public String getAData(String workerId, String dataSetId, String dataId) {
+		// TODO Auto-generated method stub
+		if(workerId==null||dataSetId==null||dataId==null)
+			return null;
+		
+		String path=ROOT+"/users/"+workerId+"/"+dataSetId;
+		File completeDir=new File(path+"/complete");
+		File incompleteDir=new File(path+"/incomplete");
+		
+		String[]cmpd=completeDir.list();
+		String[]icmpd=incompleteDir.list();
+		
+		for(String s:icmpd){
+			if(s.contains(dataId))
+				return path+"/incomplete/"+s;
+		}
+		
+		for(String s:cmpd){
+			if(s.contains(dataId))
+				return path+"/complete/"+s;
+		}
+		
+		return null;
+	}
+
+
+
+	@Override
+	public boolean uploadDataSet(String publisherId, String dataSetId, byte[] bytes) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+
+	@Override
+	public List<String> getUserAllProjectsName(String userId) {
+		// TODO Auto-generated method stub
+		String path=ROOT+"/users/"+userId;
+		File userDir=new File(path);
+		String[]list=userDir.list();
+		
+		if(list==null)//user doesn't exist
+			return null;
+		
+		List<String>arr=new ArrayList<>();
+		for(String s:list)
+			arr.add(s);
+		
+		return arr;
+	}
+
+
+
+	@Override
+	public List<String> viewUndoData(String userId, String dataSetId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public List<String> viewDoneData(String userId, String dataSetId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

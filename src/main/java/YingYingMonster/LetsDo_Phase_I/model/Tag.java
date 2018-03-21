@@ -1,5 +1,6 @@
 package YingYingMonster.LetsDo_Phase_I.model;
 
+import java.io.Serializable;
 import java.util.Map;
 
 /**
@@ -7,7 +8,12 @@ import java.util.Map;
  * @author 17678
  *
  */
-public class Tag {
+public class Tag implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8721771397034622966L;
 
 	private int type;
 	

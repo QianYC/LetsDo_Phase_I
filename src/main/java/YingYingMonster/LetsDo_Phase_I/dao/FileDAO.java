@@ -14,7 +14,7 @@ public interface FileDAO {
 	 * @param workerId 工人id
 	 * @param tag 标记
 	 */
-	public boolean uploadTag(String workerId,Tag tag);
+	public boolean uploadTag(String workerId, String projectId, String tagId,Tag tag);
 	
 	
 	/**
